@@ -1,28 +1,27 @@
-// 1. Toodete lisamine e-poodi
-class Product {
-    // Konstruktor, mis määrab toote omadused
-    constructor(title, price, category) {
-        this.title = title;
-        this.price = price;
-        this.category = category;
-}
 
-    // meetod toote kokkuvõte kirjeldamiseks
-    describe() {
-    return `${this.title} hind on ${this.price} ja kuulub kategooriasse ${this.category}.`;
-}
+// main.js impordin product.js, cart.js, customer.js
+import { Product } from './product.js';
+import { Cart } from './cart.js';
+import { Customer } from './customer.js';
+import { Order } from './order.js'; // Vajadusel import Order
 
-    // staatiline meetod allahindlus hinna arvutamiseks
-    static discountedPrice(price, discountPercentage) {
-        return price - (price * (discountPercentage / 100));
-    }
-}
+// Loo mõned tooted
+const laptop = new Product('Sülearvuti', 999.99, 'Elektroonika'); // Lisatud tagasi
+const phone = new Product('Telefon', 599.99, 'Elektroonika');
 
-// kasutuse näide
-const laptop = new Product('Sülearvuti', 999.99, 'Elektroonika');
+// Loo ostukorv ja lisa tooted
+const cart = new Cart();
+cart.addProduct(laptop, 1);
+cart.addProduct(phone, 2);
 
-//Prindi toote kokuvõte
-console.log(laptop.describe());
+// Kuvage ostukorvi kogusumma ja toodete arv
+console.log('Kogusumma:', cart.calculateTotal().toFixed(2));
+console.log('Kokku tooteid ostukorvis:', cart.totalItems);
 
-//Prindi allahinnatud hind (10% allahindlus)
-console.log(Product.discountedPrice(laptop.price, 10)); //10% allahindlus
+// Loo klient ja esita tellimus
+const customer = new Customer('Alice');
+customer.placeOrder(cart);
+
+// Kuvage tellimuste ajalugu
+customer.printOrderHistory();
+const order = new Order(cart);
