@@ -4,7 +4,8 @@ import { Product } from './product.js';
 import { Cart } from './cart.js';
 import { Customer } from './customer.js';
 import { Order } from './order.js'; // Vajadusel import Order
-
+import { displayAllProductsView } from './allProductsView.js';
+import { dispalyCartView } from './CartView.js';
 
 // Loo mõned tooted
 const products = [
@@ -36,7 +37,7 @@ console.log(myHeading);
 
         
         
-const mainContainer = document.getElementById("container");
+/*const mainContainer = document.getElementById("container");
 console.log(mainContainer);
 
 products.forEach(element => {
@@ -54,4 +55,7 @@ function dispalyProducts(){
         
         productsContainer.append(productCard);
     })
-};
+};*/
+// 
+displayAllProductsView(products)
+dispalyCartView(cart)
