@@ -5,7 +5,13 @@ import { Cart } from './cart.js';
 import { Customer } from './customer.js';
 import { Order } from './order.js'; // Vajadusel import Order
 import { displayAllProductsView } from './allProductsView.js';
-import { dispalyCartView } from './CartView.js';
+import { displayCartView } from './CartView.js';
+import { displayFavoritesView } from './favoritesView.js';
+import { displayProductDetailView } from './productDetailView.js';
+
+// Kasutage funktsiooni, näiteks:
+// displayProductDetailView(someProduct);
+
 
 // Loo mõned tooted
 const products = [
@@ -57,5 +63,22 @@ function dispalyProducts(){
     })
 };*/
 // 
-displayAllProductsView(products)
-dispalyCartView(cart)
+// Loo ostukorv ja lisa tooted
+const cart = new Cart();
+cart.addProduct(products[0], 1); // 1 Sülearvuti
+cart.addProduct(products[1], 2); // 2 Telefoni
+
+// Kuvame kõik tooted
+displayAllProductsView(products);
+
+const product = products[0];
+
+// Kuvame toote detailid
+displayProductDetailView(product);
+
+// Kuvame ostukorvi
+displayCartView(cart.items);
+
+// Lemmikud
+const favorites = [products[1], products[2]];  // Telefon ja Tahvelarvuti
+displayFavoritesView(favorites);
