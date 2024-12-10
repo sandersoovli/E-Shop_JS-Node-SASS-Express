@@ -1,4 +1,4 @@
-// Täpsustame eksportimist õigesti
+// productDetailView.js
 export const displayProductDetailView = (product) => {
     const container = document.getElementById("container");
     container.innerHTML = "";  // Tühjendame olemasoleva sisu
@@ -13,5 +13,6 @@ export const displayProductDetailView = (product) => {
         <p><strong>hind:</strong> €${product.price.toFixed(2)}</p>
         <p><strong>Kirjeldus:</strong> ${product.description || "Ei ole kirjeldust saadaval"}</p>
     `;
+    
     container.appendChild(productDetailContainer);  // Lisame detailide konteineri HTML-i
 };

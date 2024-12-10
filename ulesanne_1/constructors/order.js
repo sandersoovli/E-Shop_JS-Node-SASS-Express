@@ -15,3 +15,5 @@ export class Order {
         console.log(`Kogusumma: ${this.cart.calculateTotal().toFixed(2)} €`);
     }
 }
+
+export const oderConstructor = new Order();

@@ -1,84 +1,81 @@
-
-// main.js impordin product.js, cart.js, customer.js
-import { Product } from './product.js';
-import { Cart } from './cart.js';
-import { Customer } from './customer.js';
-import { Order } from './order.js'; // Vajadusel import Order
-import { displayAllProductsView } from './allProductsView.js';
-import { displayCartView } from './CartView.js';
-import { displayFavoritesView } from './favoritesView.js';
-import { displayProductDetailView } from './productDetailView.js';
-
-// Kasutage funktsiooni, näiteks:
-// displayProductDetailView(someProduct);
-
+// Importige vajalikud vaated ja klassid
+import { customerConstructor } from './constructors/customer.js';
+import { cartConstructor } from './constructors/cart.js';
+import { Product } from './constructors/product.js';
+import { Cart } from './constructors/cart.js';
+import { Customer } from './constructors/customer.js';
+import { Order } from './constructors/order.js';
+import { displayAllProductsView } from './views/allProductsView.js';
+import { displayProductDetailView } from './views/productDetailView.js';
+import { displayCartView } from './views/CartView.js';
+import { displayFavoritesView } from './views/favoritesView.js';
 
 // Loo mõned tooted
 const products = [
-    new Product(0,'Sülearvuti', 999.99, 'Elektroonika'), // Lisatud tagasi
-    new Product(1,'Telefon', 599.99, 'Elektroonika'),
-    new Product(2,'Tahvelarvuti', 499.99, 'Elektroonika')
+    new Product(0, 'Sülearvuti', 999.99, 'Elektroonika'),
+    new Product(1, 'Telefon', 599.99, 'Elektroonika'),
+    new Product(2, 'Tahvelarvuti', 499.99, 'Elektroonika')
 ];
-/* Loo ostukorv ja lisa tooted
-const cart = new Cart();
-cart.addProduct(laptop, 1);
-cart.addProduct(phone, 2);
 
-// Kuvage ostukorvi kogusumma ja toodete arv
-console.log('Kogusumma:', cart.calculateTotal().toFixed(2));
-console.log('Kokku tooteid ostukorvis:', cart.totalItems);
 
-// Loo klient ja esita tellimus
-const customer = new Customer('Alice');
-customer.placeOrder(cart);
 
-// Kuvage tellimuste ajalugu
-customer.printOrderHistory();
-const order = new Order(cart);
-*/
-//tund 26_11_24
-document.title = "My website";
-const myHeading = document.getElementById("My-heading");
-console.log(myHeading);
-
-        
-        
-/*const mainContainer = document.getElementById("container");
-console.log(mainContainer);
-
-products.forEach(element => {
-    
-console.log(element.id);
-});
-function dispalyProducts(){
-    const productsContainer = document.getElementById("products");
-
-    products.forEach((Product) => {
-        const productCard = document.createElement("div");
-
-        const ProductTitle = document.createElement("h3");
-        productCard.append(ProductTitle);
-        
-        productsContainer.append(productCard);
-    })
-};*/
-// 
 // Loo ostukorv ja lisa tooted
 const cart = new Cart();
 cart.addProduct(products[0], 1); // 1 Sülearvuti
 cart.addProduct(products[1], 2); // 2 Telefoni
 
-// Kuvame kõik tooted
-displayAllProductsView(products);
-
-const product = products[0];
-
-// Kuvame toote detailid
-displayProductDetailView(product);
-
-// Kuvame ostukorvi
-displayCartView(cart.items);
-
 // Lemmikud
-const favorites = [products[1], products[2]];  // Telefon ja Tahvelarvuti
-displayFavoritesView(favorites);
+const favorites = [products[1].id, products[2].id]; // Telefon ja Tahvelarvuti ID-d
+
+// Loo klient ja esita tellimus
+const customer = new Customer('Alice');
+customer.placeOrder(cart);
+
+// Funktsioon, mis vastutab erinevate vaadete kuvamise eest
+const views = {
+    allProducts: () => displayAllProductsView(products), // Kuvab kõik tooted
+    productDetail: (productId) => {
+        const product = products.find(p => p.id === parseInt(productId));
+        if (product) {
+            displayProductDetailView(product); // Kuvame konkreetse toote detailid
+        } else {
+            console.error(`Toodet ID-ga "${productId}" ei leitud.`);
+        }
+    },
+    cart: () => displayCartView(cart.items), // Kuvame ostukorvi sisu
+    favorites: () => displayFavoritesView(favorites), // Kuvame lemmikud
+};
+
+// Navigeerimisfunktsioon
+const navigate = (view, param = null) => {
+    if (views[view]) {
+        views[view](param); // Käivitame vastava vaate
+    } else {
+        console.error(`Vaadet "${view} ei leitud.`);
+    }
+
+    // Uuenda URL-i
+    const newUrl = param ? `/${view}/${encodeURIComponent(param)}` : `/${view}`;
+    window.history.pushState({}, "", newUrl);
+};
+
+// Nuppude sündmuste sidumine
+document.getElementById("products-button")?.addEventListener("click", () => navigate("allProducts"));
+document.getElementById("cart-button")?.addEventListener("click", () => navigate("cart"));
+document.getElementById("favorites-button")?.addEventListener("click", () => navigate("favorites"));
+
+// Lehe laadimisel määrame algvaate
+window.addEventListener('load', () => {
+    const path = window.location.pathname.split('/');
+    const view = path[2] || 'allProducts';
+    const param = path[3] || null;
+    navigate(view, param); // Mine õigele vaatele
+});
+
+// Browseri ajaloo sündmuste kuulamine (tagasi/edasi liikumine)
+window.addEventListener('popstate', () => {
+    const path = window.location.pathname.split('/');
+    const view = path[2] || 'allProducts';
+    const param = path[3] || null;
+    navigate(view, param); // Uuenda vaadet vastavalt URL-ile
+});
