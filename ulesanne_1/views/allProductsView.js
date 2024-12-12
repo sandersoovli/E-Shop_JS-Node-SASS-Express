@@ -1,3 +1,7 @@
+//allProductsViews
+import { cartConstructor } from "../constructors/cart.js";
+import { customerConstructor } from "../constructors/customer.js";
+import { navigate } from "../router.js";
 // Toodete vaate genereerimine
 export const displayAllProductsView = (products) => {
     const container = document.getElementById("container");
@@ -21,8 +25,21 @@ export const displayAllProductsView = (products) => {
             <h3>${product.title}</h3>
             <p>Kategooria: ${product.category}</p>
             <p>Hind: $${product.price}</p>
+            <button id="addToCart">ostukorvi</button>
+            <button id="addTofavorite">lemmik</button>
         `;
-
+        
+        const addToCart = productElement.querySelector("#addToCart");
+            addToCart.onclick = (e) => {
+                e.stopPropagation();
+                cartConstructor.addProduct (product); 
+            }
+        
+        const favorite = productElement.querySelector("#addTofavorite");
+            favorite.onclick = (e) => {
+                e.stopPropagation();
+                customerConstructor.toggleFavorites(product);
+            }    
         // Kinnitame, et 'product.id' on olemas
         if (product.id !== undefined && product.id !== null) {
             productElement.onclick = (e) => {

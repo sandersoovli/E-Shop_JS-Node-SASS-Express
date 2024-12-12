@@ -17,7 +17,7 @@ export class Cart {
       if (existingItem) {
         existingItem.quantity += quantity;
       } else {
-        this.items.push({ product, quantity });
+        this.items.push({ "product": product, "quantity": quantity });
       }
       this.displayTotalItems();
     }
@@ -37,7 +37,7 @@ export class Cart {
     // Eemalda toode ostukorvist ID järgi
   
     removeProduct(productId) {
-      this.items = this.items.filter((item) => item.product.id !== productId);
+      this.items = this.items.filter((item) => {return item.product.id !== productId});
       this.displayTotalItems();
     }
   

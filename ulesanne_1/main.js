@@ -11,7 +11,7 @@ import { displayCartView } from './views/CartView.js';
 import { displayFavoritesView } from './views/favoritesView.js';
 
 // Loo mõned tooted
-const products = [
+export const products = [
     new Product(0, 'Sülearvuti', 999.99, 'Elektroonika'),
     new Product(1, 'Telefon', 599.99, 'Elektroonika'),
     new Product(2, 'Tahvelarvuti', 499.99, 'Elektroonika')
@@ -19,17 +19,14 @@ const products = [
 
 
 
-// Loo ostukorv ja lisa tooted
-const cart = new Cart();
-cart.addProduct(products[0], 1); // 1 Sülearvuti
-cart.addProduct(products[1], 2); // 2 Telefoni
+
 
 // Lemmikud
-const favorites = [products[1].id, products[2].id]; // Telefon ja Tahvelarvuti ID-d
+export const favorites = [products[1].id, products[2].id]; // Telefon ja Tahvelarvuti ID-d
 
 // Loo klient ja esita tellimus
 const customer = new Customer('Alice');
-customer.placeOrder(cart);
+
 
 // Funktsioon, mis vastutab erinevate vaadete kuvamise eest
 const views = {
@@ -42,8 +39,8 @@ const views = {
             console.error(`Toodet ID-ga "${productId}" ei leitud.`);
         }
     },
-    cart: () => displayCartView(cart.items), // Kuvame ostukorvi sisu
-    favorites: () => displayFavoritesView(favorites), // Kuvame lemmikud
+    cart: () => displayCartView(), // Kuvame ostukorvi sisu
+    favorites: () => displayFavoritesView(), // Kuvame lemmikud
 };
 
 // Navigeerimisfunktsioon
@@ -79,3 +76,4 @@ window.addEventListener('popstate', () => {
     const param = path[3] || null;
     navigate(view, param); // Uuenda vaadet vastavalt URL-ile
 });
+

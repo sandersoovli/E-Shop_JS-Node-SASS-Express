@@ -1,19 +1,20 @@
 import { cartConstructor } from "../constructors/cart.js";
 
+
 export const displayCartView = () => {
-    const container = document.getElementById("cart-view");
+    const container = document.getElementById("container");
     container.innerHTML = "<h2>Ostukorv</h2>";
 
-    const cart = cartConstructor.getAllProducts(); // Ostukorvi tooted
+    const cartproducts = cartConstructor.getAllProducts(); // Ostukorvi tooted
 
     // Kui ostukorv on tühi, kuvatakse teadet
-    if (!cart.length) {
+    if (cartproducts.length === 0) {
         const cartItemElement = document.createElement("p");
         cartItemElement.innerText = "Ostukorv on tühi";
         container.append(cartItemElement);
     } else {
         // Kui tooted on olemas, kuvatakse iga toode
-        cart.forEach((item) => {
+        cartproducts.forEach((item) => {
             const cartItemElement = document.createElement("div");
             cartItemElement.classList.add("cart-item");
 
@@ -32,6 +33,7 @@ export const displayCartView = () => {
             removeButton.addEventListener("click", () => {
                 cartConstructor.removeProduct(item.product.id); // Eemalda toode ostukorvist
                 displayCartView(); // Uuenda ostukorvi vaadet
+                console.log(cartConstructor);
             });
 
             cartItemElement.appendChild(removeButton);

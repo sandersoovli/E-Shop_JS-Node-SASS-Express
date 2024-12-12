@@ -1,3 +1,4 @@
+//customrt.js
 import { Order } from './order.js';
 
 export class Customer {
@@ -28,17 +29,17 @@ export class Customer {
     toggleFavorites(product) {
         // Kontrollime, kas toode on juba lemmikutes
         const existingItem = this.favorites.find(
-            (item) => item.product.id === product.id
+            (item) => item.id === product.id
         );
 
         if (existingItem) {
             // Kui on lemmikutes, eemaldame selle
             this.favorites = this.favorites.filter(
-                (item) => item.product.id !== product.id
+                (item) => item.id !== product.id
             );
         } else {
             // Kui ei ole lemmikutes, lisame selle
-            this.favorites.push({ product });
+            this.favorites.push( product );
         }
         console.log("Kõik lemmikud: ", this.favorites);
     }
