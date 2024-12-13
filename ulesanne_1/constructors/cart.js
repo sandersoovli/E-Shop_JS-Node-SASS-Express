@@ -48,7 +48,16 @@ export class Cart {
         0
       );
     }
-  
+    
+    //kogu ostukorvi hind ilma käibemaksuta
+    calculateTotalWithoutTax(taxRate = 0.22) { //vaikimisi 22%
+const total = this.items.reduce(
+    (total, item) => total + item.product.price * item.quantity,
+    0
+);
+return total / (1 + taxRate);
+    }
+
     // Toodete koguarv
     displayTotalItems() {
       const cartCout = document.getElementById("cart-count");

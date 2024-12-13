@@ -1,11 +1,13 @@
 // product.js
 export class Product {
     // Konstruktor, mis määrab toote omadused
-    constructor(id, title, price, category) {
+    constructor(id, title, price, category, description, image) {
         this.id = id;
         this.title = title;
         this.price = price;
         this.category = category;
+        this.description = description;
+        this.image = image;
     }
 
     // meetod toote kokkuvõte kirjeldamiseks

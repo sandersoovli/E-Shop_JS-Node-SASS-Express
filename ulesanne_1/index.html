@@ -4,52 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>E-pood</title>
-    <style>
-        .view { display: none; }
-        .view.active { display: block; }
-    </style>
+    <link rel="stylesheet" href="./style/style.css">
 </head>
 <body>
-    <header>
+    <header class="header">
         <h1>E-pood</h1>
         <nav>
             <button id="products-button">Tooted</button>
             <button id="cart-button">Ostukorv (<span id="cart-count">0</span>)</button>
             <button id="favorites-button">Lemmikud</button>
+            
         </nav>
     </header>
 
     <main>
         <!-- Peamine sisu -->
         <section id="container"></section>
-
-        <!-- Toodete vaade -->
-        <section id="products-view" class="view">
-            <h2>Tooted</h2>
-            <div id="products"></div>
-        </section>
-
-        <!-- Toote detailvaade -->
-        <section id="product-detail-view" class="view">
-            <h2>Toote detail</h2>
-            <div id="product-detail"></div>
-        </section>
-
-        <!-- Ostukorvi vaade -->
-        <section id="cart-view" class="view">
-            <h2>Ostukorv</h2>
-            <div id="cart-items"></div>
-            <div id="cart-summary">
-                <p id="total-price">Kokku: €0.00</p>
-                <button id="checkout-button">Esita tellimus</button>
-            </div>
-        </section>
-
-        <!-- Lemmikute vaade -->
-        <section id="favorites-view" class="view">
-            <h2>Lemmikud</h2>
-            <div id="favorites"></div>
-        </section>
+        
     </main>
 
     <footer>

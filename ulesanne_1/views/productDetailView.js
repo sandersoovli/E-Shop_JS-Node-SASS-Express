@@ -1,5 +1,10 @@
 // productDetailView.js
-export const displayProductDetailView = (product) => {
+
+import { getAllCategory } from "../api.js";
+
+export const displayProductDetailView = async (productId) => {
+    const product = await getProductById(productId);
+    
     const container = document.getElementById("container");
     container.innerHTML = "";  // Tühjendame olemasoleva sisu
 

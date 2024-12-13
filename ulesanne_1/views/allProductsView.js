@@ -1,9 +1,14 @@
 //allProductsViews
+import { getProductsData, getProductsDataByCategory } from "../api.js";
 import { cartConstructor } from "../constructors/cart.js";
 import { customerConstructor } from "../constructors/customer.js";
 import { navigate } from "../router.js";
+
+
 // Toodete vaate genereerimine
-export const displayAllProductsView = (products) => {
+export const displayAllProductsView = async (category) => {
+    const products = await getProductsData();
+
     const container = document.getElementById("container");
     container.innerHTML = "<h2>Tooted</h2>";
 

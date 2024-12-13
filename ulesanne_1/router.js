@@ -21,13 +21,13 @@ export const navigate = (view, param) => {
   }
 
   // Uuenda URL-i, et peegeldada navigeerimist
-  const encodedParam = encodeURIComponent(param || ''); // Kui param on tühi, kasuta vaikimisi väärtust
-  const newUrl = `/${view}/${encodedParam}`; // Loome URL, et peegeldada vaate ja parameetri muutust
-  window.history.pushState({ view, param }, '', newUrl); // Lisa ajalugu, et hiljem saada juurde vaate ja parameetri teavet
+  //const encodedParam = encodeURIComponent(param || ''); // Kui param on tühi, kasuta vaikimisi väärtust
+  //const newUrl = `/${view}/${encodedParam}`; // Loome URL, et peegeldada vaate ja parameetri muutust
+  //window.history.pushState({ view, param }, '', newUrl); // Lisa ajalugu, et hiljem saada juurde vaate ja parameetri teavet
 };
 
-// Kuula brauseri "popstate" sündmusi (tagasi/edasi nupud)
+/* Kuula brauseri "popstate" sündmusi (tagasi/edasi nupud)
 window.addEventListener('popstate', (event) => {
-  const { view, param } = event.state || {}; // Kui ajaloo objekt on olemas, siis saadame vaate ja parameetri
+  //const { view, param } = event.state || {}; // Kui ajaloo objekt on olemas, siis saadame vaate ja parameetri
   navigate(view || 'allProducts', param); // Mine õigele vaatele
-});
+});*/

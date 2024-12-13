@@ -1,0 +1,41 @@
+@import "./variables";
+@import "./header";
+
+
+
+/* Lisa CSS, et kuvada eri vaated, kategooriate filter, ostukorv ja lemmikud */
+body {
+  font-family: Arial, sans-serif;
+  background-color: grey;
+}
+button{
+    background-color: $primaryBtn;
+}
+button:hover {
+    background-color: $primaryBtnhover;
+}
+
+
+#container {
+  background-color: rgb(94, 196, 230);
+  padding: 50px;
+}
+
+.product {
+  border: 2px solid black;
+  width: 12rem;
+  padding: 10px;
+
+}
+
+.products-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+gap: 1rem;
+}
+
+#products-view {
+  display: flex;
+
+}

@@ -42,8 +42,18 @@ export const displayCartView = () => {
 
         // Kokkuhind
         const totalPrice = cartConstructor.calculateTotal();
+        const totalPriceWithoutTax = cartConstructor.calculateTotalWithoutTax(); // Maksudeta hind
+
         const totalElement = document.createElement("p");
         totalElement.innerHTML = `Kokku: $${totalPrice.toFixed(2)}`;
+
+        const totalPriceWithoutTaxElement = document.createElement("p");
+        totalPriceWithoutTaxElement.innerHTML = `Kokku ilma käibemaksuta: $${totalPriceWithoutTax.toFixed(2)}`;
+
         container.appendChild(totalElement);
+        container.appendChild(totalPriceWithoutTaxElement);
+
+        //hind ilmakäibe maksuta
+        //calculateTotalWithoutTax(taxRate = 0.22)
     }
 };

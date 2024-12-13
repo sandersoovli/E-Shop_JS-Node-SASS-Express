@@ -9,7 +9,10 @@ import { displayAllProductsView } from './views/allProductsView.js';
 import { displayProductDetailView } from './views/productDetailView.js';
 import { displayCartView } from './views/CartView.js';
 import { displayFavoritesView } from './views/favoritesView.js';
+import { getProductsData} from './api.js';
+import { getAllCategory } from './api.js';
 
+ 
 // Loo mõned tooted
 export const products = [
     new Product(0, 'Sülearvuti', 999.99, 'Elektroonika'),
@@ -17,9 +20,22 @@ export const products = [
     new Product(2, 'Tahvelarvuti', 499.99, 'Elektroonika')
 ];
 
+const initApp = async () => {
+    try {
+        // Hankige kategooriad andmebaasist
+        //const categories = await getAllCategory();
+        
+       
+        displayAllProductsView();
+        // Kuvage esimese kategooria tooted
+        
+    } catch (error) {
+        console.error("Viga rakenduse initsialiseerimisel:", error);
+    }
+};
 
-
-
+// Rakenduse initsialiseerimine pärast DOM-i täielikku laadimist
+window.addEventListener("load", initApp);
 
 // Lemmikud
 export const favorites = [products[1].id, products[2].id]; // Telefon ja Tahvelarvuti ID-d
@@ -51,9 +67,7 @@ const navigate = (view, param = null) => {
         console.error(`Vaadet "${view} ei leitud.`);
     }
 
-    // Uuenda URL-i
-    const newUrl = param ? `/${view}/${encodeURIComponent(param)}` : `/${view}`;
-    window.history.pushState({}, "", newUrl);
+    
 };
 
 // Nuppude sündmuste sidumine
@@ -77,3 +91,4 @@ window.addEventListener('popstate', () => {
     navigate(view, param); // Uuenda vaadet vastavalt URL-ile
 });
 
+document.addEventListener("DOMContentLoaded", initApp)
