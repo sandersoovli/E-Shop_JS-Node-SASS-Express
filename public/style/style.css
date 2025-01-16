@@ -1,0 +1,50 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  background-color: #e02121;
+}*/
+
+.background {
+  background-color: rgb(204, 25, 25);
+}
+
+/* Lisa CSS, et kuvada eri vaated, kategooriate filter, ostukorv ja lemmikud */
+body {
+  font-family: Arial, sans-serif;
+  background-color: grey;
+}
+
+button {
+  background-color: rgb(223, 188, 35);
+}
+
+button:hover {
+  background-color: green;
+}
+
+#container {
+  background-color: rgb(94, 196, 230);
+  padding: 50px;
+}
+
+.product {
+  border: 2px solid black;
+  width: 12rem;
+  padding: 10px;
+}
+
+.products-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+#products-view {
+  display: flex;
+}/*# sourceMappingURL=style.css.map */
+
+.product img {
+  width: 100%;
+}
