@@ -15,12 +15,24 @@ app.use(express.static("public"));
 const fetchAndSaveProducts = async () => {
   const response = await axios.get('https://fakestoreapi.com/products');
   const products = response.data;
-  await fs.writeFile('./data/products.json', JSON.stringify(products, null, 2));
+  const filePath = './data/products.json';
+
+  try {
+    await fs.mkdir('./data', { recursive: true}); // Veendu, et kaust on olemas
+    await fs.writeFile(filePath, JSON.stringify(products, null, 2));
+    console.log('Andmed edukalt salvestatud.');
+  } catch (error) {
+    console.log('Viga andmete salvestamisel:', error);
+    throw new Error('Andmete laadimine ebaõnnestus');
+  }
 };
 
 // Funktsioon: Kontrolli, kas fail on tühi
 const isFileEmpty = async (path) => {
   try {
+    const stats = await fs.stat(path);
+    if (!stats.isFile()) return true;
+    
     const rawData = await fs.readFile(path, 'utf-8');
     return !rawData.trim(); // Kontrollime, kas fail on tühi (või ainult tühikud)
   } catch (error) {
@@ -29,19 +41,29 @@ const isFileEmpty = async (path) => {
   }
 };
 
-// API: Tagasta lokaalsest JSON-failist andmed
-app.get("/products/categories", async (req,res) => {
-    try {
-        const filePath = './data/products.json';
-        const data = JSON.parse(await fs.readFile(filePath,"utf-8"));
-        const categories = [...new Set(data.map((item) => item.category))];
+app.get('/allProducts/all', (req, res) => {
+  res.json({ message: 'Kõik tooted', products: [] });
+});
 
-        console.log(categories);
-        res.status(200).json(categories);
-    } catch (error) {
-        
-    }
-})
+app.get("/products/categories", async (req, res) => {
+  try {
+    const filePath = './data/products.json';
+    
+    // Loe andmed failist
+    const rawData = await fs.readFile(filePath, "utf-8");
+    const data = JSON.parse(rawData);
+
+    // Eemalda dubleeruvad kategooriad
+    const categories = [...new Set(data.map((item) => item.category))];
+
+    console.log('Kategooriad:', categories);
+    res.status(200).json(categories);
+  } catch (error) {
+    console.error('Viga kategooriate laadimisel:', error);
+    res.status(500).json({ error: 'Kategooriate laadimine ebaõnnestus' });
+  }
+});
+
 app.get('/products', async (req, res) => {
   try {
     const filePath = './data/products.json';
