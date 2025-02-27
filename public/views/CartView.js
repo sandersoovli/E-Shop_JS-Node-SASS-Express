@@ -1,6 +1,5 @@
 import { cartConstructor } from "../constructors/cart.js";
 
-
 export const displayCartView = () => {
     const container = document.getElementById("container");
     container.innerHTML = "<h2>Ostukorv</h2>";
@@ -33,7 +32,6 @@ export const displayCartView = () => {
             removeButton.addEventListener("click", () => {
                 cartConstructor.removeProduct(item.product.id); // Eemalda toode ostukorvist
                 displayCartView(); // Uuenda ostukorvi vaadet
-                console.log(cartConstructor);
             });
 
             cartItemElement.appendChild(removeButton);
@@ -52,8 +50,5 @@ export const displayCartView = () => {
 
         container.appendChild(totalElement);
         container.appendChild(totalPriceWithoutTaxElement);
-
-        //hind ilmakäibe maksuta
-        //calculateTotalWithoutTax(taxRate = 0.22)
     }
 };
